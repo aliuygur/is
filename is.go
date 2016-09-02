@@ -177,7 +177,8 @@ func UTFDigit(s string) bool {
 
 // Hexadecimal check if the string is a hexadecimal number.
 func Hexadecimal(str string) bool {
-	return rxHexadecimal.MatchString(str)
+	_, err := strconv.ParseInt(str, 16, 0)
+	return err == nil
 }
 
 // Hexcolor check if the string is a hexadecimal color.
@@ -211,12 +212,15 @@ func Int(str string) bool {
 	if Null(str) {
 		return true
 	}
-	return rxInt.MatchString(str)
+	_, err := strconv.Atoi(str)
+
+	return err == nil
 }
 
 // Float check if the string is a float.
 func Float(str string) bool {
-	return str != "" && rxFloat.MatchString(str)
+	_, err := strconv.ParseFloat(str, 0)
+	return err == nil
 }
 
 // DivisibleBy check if the string is a number that's divisible by another.
@@ -518,7 +522,7 @@ func MAC(str string) bool {
 
 // MongoID check if the string is a valid hex-encoded representation of a MongoDB ObjectId.
 func MongoID(str string) bool {
-	return rxHexadecimal.MatchString(str) && (len(str) == 24)
+	return rxMongoID.MatchString(str)
 }
 
 // Latitude check if a string is valid latitude.

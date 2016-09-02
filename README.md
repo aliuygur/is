@@ -1,4 +1,4 @@
-# godash
+# is
 
 [![Build Status](https://travis-ci.org/alioygur/is.svg?branch=master)](https://travis-ci.org/alioygur/is)
 [![GoDoc](https://godoc.org/github.com/alioygur/is?status.svg)](https://godoc.org/github.com/alioygur/is)

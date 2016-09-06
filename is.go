@@ -6,6 +6,7 @@ import (
 	"math"
 	"net"
 	"net/url"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -575,6 +576,18 @@ func StringLength(str string, params ...string) bool {
 	}
 
 	return false
+}
+
+//Exists returns whether the given file or directory exists or not
+func Exists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return true, err
 }
 
 // toFloat convert the input string to a float, or 0.0 if the input is not a float.

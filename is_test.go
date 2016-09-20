@@ -857,9 +857,9 @@ func TestNull(t *testing.T) {
 		{"", true},
 	}
 	for _, test := range tests {
-		actual := Null(test.param)
+		actual := NullString(test.param)
 		if actual != test.expected {
-			t.Errorf("Expected Null(%q) to be %v, got %v", test.param, test.expected, actual)
+			t.Errorf("Expected NullString(%q) to be %v, got %v", test.param, test.expected, actual)
 		}
 	}
 }

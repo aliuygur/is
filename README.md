@@ -21,11 +21,9 @@ import "log"
 func main()  {
     email := "jhon@example.com"
 
-    if is.Email(email) {
-        log.Printf("%s address is valid", email)
-    } else {
-        log.Printf("%s address is invalid", email)
-    }
+    is.Email(email) // true
+    is.Numeric("Ⅸ") // false
+    is.UTFNumeric("Ⅸ") // true
 }
 ```
 

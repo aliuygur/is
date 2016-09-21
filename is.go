@@ -194,7 +194,7 @@ func RGBcolor(str string) bool {
 
 // LowerCase check if the string is lowercase. Empty string is valid.
 func LowerCase(str string) bool {
-	if Null(str) {
+	if NullString(str) {
 		return true
 	}
 	return str == strings.ToLower(str)
@@ -202,7 +202,7 @@ func LowerCase(str string) bool {
 
 // UpperCase check if the string is uppercase. Empty string is valid.
 func UpperCase(str string) bool {
-	if Null(str) {
+	if NullString(str) {
 		return true
 	}
 	return str == strings.ToUpper(str)
@@ -210,7 +210,7 @@ func UpperCase(str string) bool {
 
 // Int check if the string is an integer. Empty string is valid.
 func Int(str string) bool {
-	if Null(str) {
+	if NullString(str) {
 		return true
 	}
 	_, err := strconv.Atoi(str)
@@ -237,9 +237,17 @@ func DivisibleBy(str, num string) bool {
 	return (p == 0) || (p%q == 0)
 }
 
-// Null check if the string is null.
-func Null(str string) bool {
+// NullString check if the string is null.
+func NullString(str string) bool {
 	return len(str) == 0
+}
+
+// Null check if the variable is null.
+func Null(obj interface{}) bool {
+	if obj != nil {
+		return false
+	}
+	return true
 }
 
 // ByteLength check if the string's length (in bytes) falls in a range.
@@ -363,7 +371,7 @@ func Multibyte(s string) bool {
 		}
 	}
 
-	return Null(s)
+	return NullString(s)
 }
 
 // ASCII check if the string contains ASCII chars only. Empty string is valid.
@@ -388,7 +396,7 @@ func PrintableASCII(s string) bool {
 
 // FullWidth check if the string contains any full-width chars. Empty string is valid.
 func FullWidth(str string) bool {
-	if Null(str) {
+	if NullString(str) {
 		return true
 	}
 	return rxFullWidth.MatchString(str)
@@ -396,7 +404,7 @@ func FullWidth(str string) bool {
 
 // HalfWidth check if the string contains any half-width chars. Empty string is valid.
 func HalfWidth(str string) bool {
-	if Null(str) {
+	if NullString(str) {
 		return true
 	}
 	return rxHalfWidth.MatchString(str)
@@ -404,7 +412,7 @@ func HalfWidth(str string) bool {
 
 // VariableWidth check if the string contains a mixture of full and half-width chars. Empty string is valid.
 func VariableWidth(str string) bool {
-	if Null(str) {
+	if NullString(str) {
 		return true
 	}
 	return rxHalfWidth.MatchString(str) && rxFullWidth.MatchString(str)
@@ -412,7 +420,7 @@ func VariableWidth(str string) bool {
 
 // Base64 check if a string is base64 encoded.
 func Base64(s string) bool {
-	if Null(s) {
+	if NullString(s) {
 		return false
 	}
 	_, err := base64.StdEncoding.DecodeString(s)

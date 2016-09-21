@@ -8,20 +8,18 @@ Micro check library in Golang.
 
 ## installation
 
-`go get gopkg.in/alioygur/is.v0`
+`go get gopkg.in/alioygur/is.v1`
 
 ## usage
 
 ```go
 package main
 
-import "gopkg.in/alioygur/is.v0"
+import "gopkg.in/alioygur/is.v1"
 import "log"
 
 func main()  {
-    email := "jhon@example.com"
-
-    is.Email(email) // true
+    is.Email("jhon@example.com") // true
     is.Numeric("Ⅸ") // false
     is.UTFNumeric("Ⅸ") // true
 }

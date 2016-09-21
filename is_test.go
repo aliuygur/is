@@ -846,51 +846,6 @@ func TestRGBcolor(t *testing.T) {
 	}
 }
 
-func TestNull(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param    string
-		expected bool
-	}{
-		{"abacaba", false},
-		{"", true},
-	}
-	for _, test := range tests {
-		actual := NullString(test.param)
-		if actual != test.expected {
-			t.Errorf("Expected NullString(%q) to be %v, got %v", test.param, test.expected, actual)
-		}
-	}
-}
-
-func TestDivibleBy(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param1   string
-		param2   string
-		expected bool
-	}{
-		{"4", "2", true},
-		{"100", "10", true},
-		{"", "1", true},
-		{"123", "foo", false},
-		{"123", "0", false},
-	}
-	for _, test := range tests {
-		actual := DivisibleBy(test.param1, test.param2)
-		if actual != test.expected {
-			t.Errorf("Expected DivisibleBy(%q, %q) to be %v, got %v", test.param1, test.param2, test.expected, actual)
-		}
-	}
-}
-
-// This small example illustrate how to work with IsDivisibleBy function.
-func ExampleDivisibleBy() {
-	println("1024  divisible by 64: ", DivisibleBy("1024", "64"))
-}
-
 func TestByteLength(t *testing.T) {
 	t.Parallel()
 
@@ -1708,94 +1663,6 @@ func TestSemver(t *testing.T) {
 	}
 }
 
-func TestNegative(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param    float64
-		expected bool
-	}{
-		{0, false},
-		{-1, true},
-		{10, false},
-		{3.14, false},
-		{-96, true},
-		{-10e-12, true},
-	}
-	for _, test := range tests {
-		actual := Negative(test.param)
-		if actual != test.expected {
-			t.Errorf("Expected Negative(%q) to be %v, got %v", test.param, test.expected, actual)
-		}
-	}
-}
-
-func TestNonNegative(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param    float64
-		expected bool
-	}{
-		{0, true},
-		{-1, false},
-		{10, true},
-		{3.14, true},
-		{-96, false},
-		{-10e-12, false},
-	}
-	for _, test := range tests {
-		actual := NonNegative(test.param)
-		if actual != test.expected {
-			t.Errorf("Expected NonNegative(%q) to be %v, got %v", test.param, test.expected, actual)
-		}
-	}
-}
-
-func TestPositive(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param    float64
-		expected bool
-	}{
-		{0, false},
-		{-1, false},
-		{10, true},
-		{3.14, true},
-		{-96, false},
-		{-10e-12, false},
-	}
-	for _, test := range tests {
-		actual := Positive(test.param)
-		if actual != test.expected {
-			t.Errorf("Expected Positive(%q) to be %v, got %v", test.param, test.expected, actual)
-		}
-	}
-}
-
-func TestNonPositive(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param    float64
-		expected bool
-	}{
-		{0, true},
-		{-1, true},
-		{10, false},
-		{3.14, false},
-		{-96, true},
-		{-10e-12, true},
-	}
-	for _, test := range tests {
-		actual := NonPositive(test.param)
-		if actual != test.expected {
-			t.Errorf("Expected NonPositive(%q) to be %v, got %v", test.param, test.expected, actual)
-		}
-	}
-}
-
 func TestWhole(t *testing.T) {
 	t.Parallel()
 
@@ -1866,49 +1733,28 @@ func TestInRange(t *testing.T) {
 	}
 }
 
-func TestMatches(t *testing.T) {
-	t.Parallel()
-
-	var tests = []struct {
-		param1   string
-		param2   string
-		expected bool
-	}{
-		{"123456789", "[0-9]+", true},
-		{"abacada", "cab$", false},
-		{"111222333", "((111|222|333)+)+", true},
-		{"abacaba", "((123+]", false},
-	}
-	for _, test := range tests {
-		actual := Matches(test.param1, test.param2)
-		if actual != test.expected {
-			t.Errorf("Expected Matches(%q,%q) to be %v, got %v", test.param1, test.param2, test.expected, actual)
-		}
-	}
-}
-
 func TestStringLength(t *testing.T) {
 	t.Parallel()
 
 	var tests = []struct {
 		value    string
-		min      string
-		max      string
+		min      int
+		max      int
 		expected bool
 	}{
-		{"123456", "0", "100", true},
-		{"1239999", "0", "0", false},
-		{"1239asdfasf99", "100", "200", false},
-		{"1239999asdff29", "10", "30", true},
-		{"あいうえお", "0", "5", true},
-		{"あいうえおか", "0", "5", false},
-		{"あいうえお", "0", "0", false},
-		{"あいうえ", "5", "10", false},
+		{"123456", 0, 100, true},
+		{"1239999", 0, 0, false},
+		{"1239asdfasf99", 100, 200, false},
+		{"1239999asdff29", 10, 30, true},
+		{"あいうえお", 0, 5, true},
+		{"あいうえおか", 0, 5, false},
+		{"あいうえお", 0, 0, false},
+		{"あいうえ", 5, 10, false},
 	}
 	for _, test := range tests {
 		actual := StringLength(test.value, test.min, test.max)
 		if actual != test.expected {
-			t.Errorf("Expected StringLength(%s, %s, %s) to be %v, got %v", test.value, test.min, test.max, test.expected, actual)
+			t.Errorf("Expected StringLength(%s, %d, %d) to be %v, got %v", test.value, test.min, test.max, test.expected, actual)
 		}
 	}
 }

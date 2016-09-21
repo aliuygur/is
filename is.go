@@ -83,7 +83,7 @@ func Alpha(s string) bool {
 	return true
 }
 
-//IsUTFLetter check if the string contains only unicode letter characters.
+//UTFLetter check if the string contains only unicode letter characters.
 //Similar to IsAlpha but for all languages. Empty string is valid.
 func UTFLetter(str string) bool {
 	for _, v := range str {
@@ -136,26 +136,6 @@ func UTFNumeric(s string) bool {
 	return true
 }
 
-// Negative returns true if value < 0
-func Negative(value float64) bool {
-	return value < 0
-}
-
-// Positive returns true if value > 0
-func Positive(value float64) bool {
-	return value > 0
-}
-
-// NonNegative returns true if value >= 0
-func NonNegative(value float64) bool {
-	return value >= 0
-}
-
-// NonPositive returns true if value <= 0
-func NonPositive(value float64) bool {
-	return value <= 0
-}
-
 // Whole returns true if value is whole number
 func Whole(value float64) bool {
 	return math.Abs(math.Remainder(value, 1)) == 0
@@ -163,7 +143,7 @@ func Whole(value float64) bool {
 
 // Natural returns true if value is natural number (positive and whole)
 func Natural(value float64) bool {
-	return Whole(value) && Positive(value)
+	return Whole(value) && value > 0
 }
 
 // UTFDigit check if the string contains only unicode radix-10 decimal digits. Empty string is valid.
@@ -194,7 +174,7 @@ func RGBcolor(str string) bool {
 
 // LowerCase check if the string is lowercase. Empty string is valid.
 func LowerCase(str string) bool {
-	if NullString(str) {
+	if len(str) == 0 {
 		return true
 	}
 	return str == strings.ToLower(str)
@@ -202,7 +182,7 @@ func LowerCase(str string) bool {
 
 // UpperCase check if the string is uppercase. Empty string is valid.
 func UpperCase(str string) bool {
-	if NullString(str) {
+	if len(str) == 0 {
 		return true
 	}
 	return str == strings.ToUpper(str)
@@ -210,7 +190,7 @@ func UpperCase(str string) bool {
 
 // Int check if the string is an integer. Empty string is valid.
 func Int(str string) bool {
-	if NullString(str) {
+	if len(str) == 0 {
 		return true
 	}
 	_, err := strconv.Atoi(str)
@@ -222,32 +202,6 @@ func Int(str string) bool {
 func Float(str string) bool {
 	_, err := strconv.ParseFloat(str, 0)
 	return err == nil
-}
-
-// DivisibleBy check if the string is a number that's divisible by another.
-// If second argument is not valid integer or zero, it's return false.
-// Otherwise, if first argument is not valid integer or zero, it's return true (Invalid string converts to zero).
-func DivisibleBy(str, num string) bool {
-	f, _ := toFloat(str)
-	p := int64(f)
-	q, _ := toInt(num)
-	if q == 0 {
-		return false
-	}
-	return (p == 0) || (p%q == 0)
-}
-
-// NullString check if the string is null.
-func NullString(str string) bool {
-	return len(str) == 0
-}
-
-// Null check if the variable is null.
-func Null(obj interface{}) bool {
-	if obj != nil {
-		return false
-	}
-	return true
 }
 
 // ByteLength check if the string's length (in bytes) falls in a range.
@@ -371,7 +325,7 @@ func Multibyte(s string) bool {
 		}
 	}
 
-	return NullString(s)
+	return len(s) == 0
 }
 
 // ASCII check if the string contains ASCII chars only. Empty string is valid.
@@ -396,7 +350,7 @@ func PrintableASCII(s string) bool {
 
 // FullWidth check if the string contains any full-width chars. Empty string is valid.
 func FullWidth(str string) bool {
-	if NullString(str) {
+	if len(str) == 0 {
 		return true
 	}
 	return rxFullWidth.MatchString(str)
@@ -404,7 +358,7 @@ func FullWidth(str string) bool {
 
 // HalfWidth check if the string contains any half-width chars. Empty string is valid.
 func HalfWidth(str string) bool {
-	if NullString(str) {
+	if len(str) == 0 {
 		return true
 	}
 	return rxHalfWidth.MatchString(str)
@@ -412,7 +366,7 @@ func HalfWidth(str string) bool {
 
 // VariableWidth check if the string contains a mixture of full and half-width chars. Empty string is valid.
 func VariableWidth(str string) bool {
-	if NullString(str) {
+	if len(str) == 0 {
 		return true
 	}
 	return rxHalfWidth.MatchString(str) && rxFullWidth.MatchString(str)
@@ -420,7 +374,7 @@ func VariableWidth(str string) bool {
 
 // Base64 check if a string is base64 encoded.
 func Base64(s string) bool {
-	if NullString(s) {
+	if len(s) == 0 {
 		return false
 	}
 	_, err := base64.StdEncoding.DecodeString(s)
@@ -557,33 +511,10 @@ func Semver(str string) bool {
 	return rxSemver.MatchString(str)
 }
 
-// Matches check if string matches the pattern (pattern is regular expression)
-// In case of error return false
-func Matches(str, pattern string) bool {
-	match, _ := regexp.MatchString(pattern, str)
-	return match
-}
-
-// StringMatches checks if a string matches a given pattern.
-func StringMatches(s string, params ...string) bool {
-	if len(params) == 1 {
-		pattern := params[0]
-		return Matches(s, pattern)
-	}
-	return false
-}
-
 // StringLength check string's length (including multi byte strings)
-func StringLength(str string, params ...string) bool {
-
-	if len(params) == 2 {
-		strLength := utf8.RuneCountInString(str)
-		min, _ := toInt(params[0])
-		max, _ := toInt(params[1])
-		return strLength >= int(min) && strLength <= int(max)
-	}
-
-	return false
+func StringLength(str string, min int, max int) bool {
+	slen := utf8.RuneCountInString(str)
+	return slen >= min && slen <= max
 }
 
 //Exists returns whether the given file or directory exists or not

@@ -10,6 +10,24 @@ Micro check library in Golang.
 
 `go get gopkg.in/alioygur/is.v1`
 
+## Not only regex
+
+It works with runes as long as is it possible.
+
+Part of source code;
+
+```go
+// Alpha check if the string contains only letters (a-zA-Z). Empty string is valid.
+func Alpha(s string) bool {
+	for _, v := range s {
+		if ('Z' < v || v < 'A') && ('z' < v || v < 'a') {
+			return false
+		}
+	}
+	return true
+}
+```
+
 ## usage
 
 ```go

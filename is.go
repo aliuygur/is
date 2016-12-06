@@ -26,7 +26,7 @@ func InRange(value, left, right float64) bool {
 // and that it is not in the first or last character of the string
 // https://en.wikipedia.org/wiki/Email_address#Valid_email_addresses
 func Email(s string) bool {
-	if !strings.Contains(s, "@") || string(s[0]) == "@" || string(s[len(s)-1]) == "@" {
+	if !strings.Contains(s, "@") || s[0] == '@' || s[len(s)-1] == '@' {
 		return false
 	}
 	return true

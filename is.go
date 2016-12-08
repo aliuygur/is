@@ -211,22 +211,43 @@ func ByteLength(str string, min, max int) bool {
 
 // UUIDv3 check if the string is a UUID version 3.
 func UUIDv3(str string) bool {
-	return rxUUID3.MatchString(str)
+	return UUID(str) && str[14] == '3'
 }
 
 // UUIDv4 check if the string is a UUID version 4.
 func UUIDv4(str string) bool {
-	return rxUUID4.MatchString(str)
+	return UUID(str) &&
+		str[14] == '4' &&
+		(str[19] == '8' || str[19] == '9' || str[19] == 'a' || str[19] == 'b')
 }
 
 // UUIDv5 check if the string is a UUID version 5.
 func UUIDv5(str string) bool {
-	return rxUUID5.MatchString(str)
+	return UUID(str) &&
+		str[14] == '5' &&
+		(str[19] == '8' || str[19] == '9' || str[19] == 'a' || str[19] == 'b')
 }
 
 // UUID check if the string is a UUID (version 3, 4 or 5).
 func UUID(str string) bool {
-	return rxUUID.MatchString(str)
+	if len(str) != 36 {
+		return false
+	}
+
+	for i, c := range str {
+		if i == 8 || i == 13 || i == 18 || i == 23 {
+			if c != '-' {
+				return false
+			}
+			continue
+		}
+
+		if ('f' < c || c < 'a') && ('9' < c || c < '0') {
+			return false
+		}
+	}
+
+	return true
 }
 
 // CreditCard check if the string is a credit card.

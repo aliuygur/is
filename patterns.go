@@ -275,24 +275,19 @@ const (
 	// pInt         string = "^(?:[-+]?(?:0|[1-9][0-9]*))$"
 	// pFloat       string = "^(?:[-+]?(?:[0-9]+))?(?:\\.[0-9]*)?(?:[eE][\\+\\-]?(?:[0-9]+))?$"
 	// pHexadecimal string = "^[0-9a-fA-F]+$"
-	pMongoID  string = "^[0-9a-fA-F]{24}$"
-	pHexcolor string = "^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
-	pRGBcolor string = "^rgb\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*\\)$"
 	// pASCII       string = "^[\x00-\x7F]+$"
 	// pMultibyte string = "[^\x00-\x7F]"
 	pFullWidth string = "[^\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]"
 	pHalfWidth string = "[\u0020-\u007E\uFF61-\uFF9F\uFFA0-\uFFDC\uFFE8-\uFFEE0-9a-zA-Z]"
 	// pBase64    string = "^(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=|[A-Za-z0-9+\\/]{4})$"
 	// pPrintableASCII string = "^[\x20-\x7E]+$"
-	pDataURI   string = "^data:.+\\/(.+);base64$"
-	pLatitude  string = "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)$"
-	pLongitude string = "^[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$"
-	pDNSName   string = `^([a-zA-Z0-9]{1}[a-zA-Z0-9_-]{1,62}){1}(.[a-zA-Z0-9]{1}[a-zA-Z0-9_-]{1,62})*$`
-	pURL       string = `^((ftp|https?):\/\/)?(\S+(:\S*)?@)?((([1-9]\d?|1\d\d|2[01]\d|22[0-3])(\.(1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.([0-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(([a-zA-Z0-9]+([-\.][a-zA-Z0-9]+)*)|((www\.)?))?(([a-z\x{00a1}-\x{ffff}0-9]+-?-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.([a-z\x{00a1}-\x{ffff}]{2,}))?))(:(\d{1,5}))?((\/|\?|#)[^\s]*)?$`
-	pSSN       string = `^\d{3}[- ]?\d{2}[- ]?\d{4}$`
-	pWinPath   string = `^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$`
-	pUnixPath  string = `^((?:\/[a-zA-Z0-9\.\:]+(?:_[a-zA-Z0-9\:\.]+)*(?:\-[\:a-zA-Z0-9\.]+)*)+\/?)$`
-	pSemver    string = "^v?(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(-(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(\\.(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\\+[0-9a-zA-Z-]+(\\.[0-9a-zA-Z-]+)*)?$"
+	pDataURI  string = "^data:.+\\/(.+);base64$"
+	pDNSName  string = `^([a-zA-Z0-9]{1}[a-zA-Z0-9_-]{1,62}){1}(.[a-zA-Z0-9]{1}[a-zA-Z0-9_-]{1,62})*$`
+	pURL      string = `^((ftp|https?):\/\/)?(\S+(:\S*)?@)?((([1-9]\d?|1\d\d|2[01]\d|22[0-3])(\.(1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.([0-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(([a-zA-Z0-9]+([-\.][a-zA-Z0-9]+)*)|((www\.)?))?(([a-z\x{00a1}-\x{ffff}0-9]+-?-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.([a-z\x{00a1}-\x{ffff}]{2,}))?))(:(\d{1,5}))?((\/|\?|#)[^\s]*)?$`
+	pSSN      string = `^\d{3}[- ]?\d{2}[- ]?\d{4}$`
+	pWinPath  string = `^[a-zA-Z]:\\(?:[^\\/:*?"<>|\r\n]+\\)*[^\\/:*?"<>|\r\n]*$`
+	pUnixPath string = `^((?:\/[a-zA-Z0-9\.\:]+(?:_[a-zA-Z0-9\:\.]+)*(?:\-[\:a-zA-Z0-9\.]+)*)+\/?)$`
+	pSemver   string = "^v?(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(-(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(\\.(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\\+[0-9a-zA-Z-]+(\\.[0-9a-zA-Z-]+)*)?$"
 )
 
 // Used by IsFilePath func
@@ -317,22 +312,17 @@ var (
 	// rxInt         = regexp.MustCompile(pInt)
 	// rxFloat       = regexp.MustCompile(pFloat)
 	// rxHexadecimal = regexp.MustCompile(pHexadecimal)
-	rxMongoID  = regexp.MustCompile(pMongoID)
-	rxHexcolor = regexp.MustCompile(pHexcolor)
-	rxRGBcolor = regexp.MustCompile(pRGBcolor)
 	// rxASCII          = regexp.MustCompile(ASCII)
 	// rxPrintableASCII = regexp.MustCompile(PrintableASCII)
 	// rxMultibyte = regexp.MustCompile(pMultibyte)
 	rxFullWidth = regexp.MustCompile(pFullWidth)
 	rxHalfWidth = regexp.MustCompile(pHalfWidth)
 	// rxBase64         = regexp.MustCompile(Base64)
-	rxDataURI   = regexp.MustCompile(pDataURI)
-	rxLatitude  = regexp.MustCompile(pLatitude)
-	rxLongitude = regexp.MustCompile(pLongitude)
-	rxDNSName   = regexp.MustCompile(pDNSName)
-	rxURL       = regexp.MustCompile(pURL)
-	rxSSN       = regexp.MustCompile(pSSN)
-	rxWinPath   = regexp.MustCompile(pWinPath)
-	rxUnixPath  = regexp.MustCompile(pUnixPath)
-	rxSemver    = regexp.MustCompile(pSemver)
+	rxDataURI  = regexp.MustCompile(pDataURI)
+	rxDNSName  = regexp.MustCompile(pDNSName)
+	rxURL      = regexp.MustCompile(pURL)
+	rxSSN      = regexp.MustCompile(pSSN)
+	rxWinPath  = regexp.MustCompile(pWinPath)
+	rxUnixPath = regexp.MustCompile(pUnixPath)
+	rxSemver   = regexp.MustCompile(pSemver)
 )

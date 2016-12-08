@@ -164,12 +164,52 @@ func Hexadecimal(str string) bool {
 
 // Hexcolor check if the string is a hexadecimal color.
 func Hexcolor(str string) bool {
-	return rxHexcolor.MatchString(str)
+	if str == "" {
+		return false
+	}
+
+	if str[0] == '#' {
+		str = str[1:]
+	}
+
+	if len(str) != 3 && len(str) != 6 {
+		return false
+	}
+
+	for _, c := range str {
+		if ('F' < c || c < 'A') && ('f' < c || c < 'a') && ('9' < c || c < '0') {
+			return false
+		}
+	}
+
+	return true
 }
 
 // RGBcolor check if the string is a valid RGB color in form rgb(RRR, GGG, BBB).
 func RGBcolor(str string) bool {
-	return rxRGBcolor.MatchString(str)
+	if str == "" || len(str) < 10 {
+		return false
+	}
+
+	if str[0:4] != "rgb(" || str[len(str)-1] != ')' {
+		return false
+	}
+
+	str = str[4 : len(str)-1]
+	str = strings.TrimSpace(str)
+
+	for _, p := range strings.Split(str, ",") {
+		if len(p) > 1 && p[0] == '0' {
+			return false
+		}
+
+		p = strings.TrimSpace(p)
+		if i, e := strconv.Atoi(p); (255 < i || i < 0) || e != nil {
+			return false
+		}
+	}
+
+	return true
 }
 
 // LowerCase check if the string is lowercase. Empty string is valid.
@@ -406,8 +446,8 @@ func Base64(s string) bool {
 // FilePath check is a string is Win or Unix file path and returns it's type.
 func FilePath(str string) (bool, int) {
 	if rxWinPath.MatchString(str) {
-		//check windows path limit see:
-		//  http://msdn.microsoft.com/en-us/library/aa365247(VS.85).aspx#maxpath
+		// check windows path limit see:
+		// http://msdn.microsoft.com/en-us/library/aa365247(VS.85).aspx#maxpath
 		if len(str[3:]) > 32767 {
 			return false, Win
 		}
@@ -506,17 +546,53 @@ func MAC(str string) bool {
 
 // MongoID check if the string is a valid hex-encoded representation of a MongoDB ObjectId.
 func MongoID(str string) bool {
-	return rxMongoID.MatchString(str)
+	if str == "" || len(str) != 24 {
+		return false
+	}
+
+	for _, c := range str {
+		if ('F' < c || c < 'A') && ('f' < c || c < 'a') && ('9' < c || c < '0') {
+			return false
+		}
+	}
+
+	return true
 }
 
 // Latitude check if a string is valid latitude.
 func Latitude(str string) bool {
-	return rxLatitude.MatchString(str)
+	if str == "" {
+		return false
+	}
+
+	f, err := strconv.ParseFloat(str, 64)
+	if err != nil {
+		return false
+	}
+
+	if 90.0 < f || f < -90.0 {
+		return false
+	}
+
+	return true
 }
 
 // Longitude check if a string is valid longitude.
 func Longitude(str string) bool {
-	return rxLongitude.MatchString(str)
+	if str == "" {
+		return false
+	}
+
+	f, err := strconv.ParseFloat(str, 64)
+	if err != nil {
+		return false
+	}
+
+	if 180.0 < f || f < -180.0 {
+		return false
+	}
+
+	return true
 }
 
 // SSN will validate the given string as a U.S. Social Security Number

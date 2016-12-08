@@ -557,36 +557,6 @@ func TestEmail(t *testing.T) {
 	}
 }
 
-func BenchmarkEmail(b *testing.B) {
-	var tests = []struct {
-		param    string
-		expected bool
-	}{
-		{``, false},
-		{`foo@bar.com`, true},
-		{`x@x.x`, true},
-		{`foo@bar.com.au`, true},
-		{`foo+bar@bar.com`, true},
-		{`foo@bar.coffee`, true},
-		{`foo@bar.中文网`, true},
-		{`invalidemail@`, false},
-		{`invalid.com`, false},
-		{`@invalid.com`, false},
-		{`test|123@m端ller.com`, true},
-		{`hans@m端ller.com`, true},
-		{`hans.m端ller@test.com`, true},
-		{`NathAn.daVIeS@DomaIn.cOM`, true},
-		{`NATHAN.DAVIES@DOMAIN.CO.UK`, true},
-		{`very.(),:;<>[]".VERY."very@\ "very".unusual@strange.example.com`, true},
-	}
-
-	for i := 0; i < 1000000; i++ {
-		for _, test := range tests {
-			Email(test.param)
-		}
-	}
-}
-
 func ExampleEmail() {
 	fmt.Println(Email("jhon@example.com"))
 	fmt.Println(Email("invalid.com"))

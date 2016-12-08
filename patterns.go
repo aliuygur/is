@@ -269,10 +269,6 @@ const (
 	pCreditCard string = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$"
 	pISBN10     string = "^(?:[0-9]{9}X|[0-9]{10})$"
 	pISBN13     string = "^(?:[0-9]{13})$"
-	pUUID3      string = "^[0-9a-f]{8}-[0-9a-f]{4}-3[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$"
-	pUUID4      string = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-	pUUID5      string = "^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
-	pUUID       string = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
 	// pAlpha       string = "^[a-zA-Z]+$"
 	// pAlphanumeric string = "^[a-zA-Z0-9]+$"
 	// pNumeric      string = "^[-+]?[0-9]+$"
@@ -315,10 +311,6 @@ var (
 	rxCreditCard = regexp.MustCompile(pCreditCard)
 	rxISBN10     = regexp.MustCompile(pISBN10)
 	rxISBN13     = regexp.MustCompile(pISBN13)
-	rxUUID3      = regexp.MustCompile(pUUID3)
-	rxUUID4      = regexp.MustCompile(pUUID4)
-	rxUUID5      = regexp.MustCompile(pUUID5)
-	rxUUID       = regexp.MustCompile(pUUID)
 	// rxAlpha          = regexp.MustCompile(Alpha)
 	// rxAlphanumeric   = regexp.MustCompile(Alphanumeric)
 	// rxNumeric        = regexp.MustCompile(Numeric)

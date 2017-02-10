@@ -33,7 +33,7 @@ func Alpha(s string) bool {
 ```go
 package main
 
-import "gopkg.in/alioygur/is.v1"
+import "github.com/alioygur/is"
 import "log"
 
 func main()  {

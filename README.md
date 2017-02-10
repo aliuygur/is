@@ -8,7 +8,7 @@ Micro check library in Golang.
 
 ## installation
 
-`go get gopkg.in/alioygur/is.v1`
+`go get github.com/alioygur/is`
 
 ## Not only regex
 

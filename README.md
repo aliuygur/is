@@ -6,7 +6,7 @@
 
 Micro check library in Golang. 
 
-## installation
+## Installation
 
 `go get gopkg.in/alioygur/is.v1`
 
@@ -28,7 +28,7 @@ func Alpha(s string) bool {
 }
 ```
 
-## usage
+## Usage
 
 ```go
 package main

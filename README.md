@@ -8,7 +8,7 @@ Micro check library in Golang.
 
 ## Installation
 
-`go get gopkg.in/alioygur/is.v1`
+`go get github.com/alioygur/is`
 
 ## Not only regex
 
@@ -33,7 +33,7 @@ func Alpha(s string) bool {
 ```go
 package main
 
-import "gopkg.in/alioygur/is.v1"
+import "github.com/alioygur/is"
 import "log"
 
 func main()  {
